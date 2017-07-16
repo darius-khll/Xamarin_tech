@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+	<uses-sdk android:minSdkVersion="15" />
+	<application android:label="ServiceSampleAndroid.Android"></application>
+<uses-permission android:name="android.permission.SEND_SMS" />
+ <uses-permission android:name="android.permission.READ_SMS" />
+ <uses-permission android:name="android.permission.RECEIVE_SMS" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <receiver
+   android:name=".SMSBroadcastReceiver">
+    <intent-filter>
+      <action android:name="android.permission.READ_SMS" />
+    </intent-filter>
+  </receiver>
+</manifest>
