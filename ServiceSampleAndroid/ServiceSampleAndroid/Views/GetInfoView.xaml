@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ServiceSampleAndroid.Views.GetInfoView">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="شماره مورد نظر را وارد کنید" />
+            <Entry Placeholder="9120000000" Text="{Binding TelephoneNumber}"/>
+            <Button Command="{Binding SaveIntoDB}" Text="ثبت شماره"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
