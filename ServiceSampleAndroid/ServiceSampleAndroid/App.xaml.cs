@@ -13,7 +13,7 @@ namespace ServiceSampleAndroid
 		{
 			InitializeComponent();
 
-			MainPage = new ServiceSampleAndroid.MainPage();
+			MainPage = new ServiceSampleAndroid.Views.GetInfoView();
 		}
 
 		protected override void OnStart ()
