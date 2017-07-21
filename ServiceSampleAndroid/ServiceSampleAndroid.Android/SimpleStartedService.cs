@@ -17,12 +17,6 @@ namespace ServiceSampleAndroid.Droid
     [Service]
     public class SimpleStartedService : Service
     {
-        static readonly string TAG = "X:" + typeof(SimpleStartedService).Name;
-        static readonly int TimerWait = 4000;
-        Timer timer;
-        DateTime startTime;
-        bool isStarted = false;
-
         public override void OnCreate()
         {
             base.OnCreate();
@@ -39,14 +33,6 @@ namespace ServiceSampleAndroid.Droid
             return StartCommandResult.Sticky;
 
         }
-        void StartServiceInForeground()
-        {
-            var ongoing = new Notification(Resource.Drawable.Icon, "Notification");
-            var pendingIntent = PendingIntent.GetActivity(this, 0, new Intent(this, typeof(MainActivity)), 0);
-            ongoing.SetLatestEventInfo(this, "Notification", "SimpleService is running in the foreground", pendingIntent);
-
-            StartForeground((int)NotificationFlags.AutoCancel, ongoing);
-        }
         public override IBinder OnBind(Intent intent)
         {
             // This is a started service, not a bound service, so we just return null.
@@ -58,19 +44,7 @@ namespace ServiceSampleAndroid.Droid
         {
             UnregisterReceiver(SMSBroadcastReceiver);
 
-            timer.Dispose();
-            timer = null;
-            isStarted = false;
-
-            TimeSpan runtime = DateTime.UtcNow.Subtract(startTime);
-            Log.Debug(TAG, $"Simple Service destroyed at {DateTime.UtcNow} after running for {runtime:c}.");
             base.OnDestroy();
-        }
-
-        void HandleTimerCallback(object state)
-        {
-            TimeSpan runTime = DateTime.UtcNow.Subtract(startTime);
-            Log.Debug(TAG, $"This service has been running for {runTime:c} (since ${state}).");
         }
     }
 }
