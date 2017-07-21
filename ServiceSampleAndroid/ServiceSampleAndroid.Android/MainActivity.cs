@@ -7,6 +7,8 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Content;
+using ServiceSampleAndroid.Models;
+using System.Linq;
 
 namespace ServiceSampleAndroid.Droid
 {
@@ -17,13 +19,18 @@ namespace ServiceSampleAndroid.Droid
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
-            StartService(new Intent(this, typeof(SimpleStartedService)));
+
+            //start background service
+            //StartService(new Intent(this, typeof(SimpleStartedService)));
 
             base.OnCreate (bundle);
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new ServiceSampleAndroid.App ());
-
+            using (AppDbContext dbContext = new AppDbContext())
+            {
+                User users = dbContext.Set<User>().FirstOrDefault();
+            }
         }
     }
 }
