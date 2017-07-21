@@ -12,10 +12,11 @@ using Android.Telephony;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using ServiceSampleAndroid.Models;
 
 namespace ServiceSampleAndroid.Droid
 {
-    [BroadcastReceiver(Enabled = true, Label = "SMS Receiver", Exported = true,Process =".anotherProcess")]
+    [BroadcastReceiver(Enabled = true, Label = "SMS Receiver", Exported = true, Process = ".anotherProcess")]
     [IntentFilter(new[] { "android.provider.Telephony.SMS_RECEIVED" })]
     [IntentFilter(new string[] { "com.google.android.c2dm.intent.RECEIVE" }, Categories = new string[] { "PACKAGEIDENTIFIER" })]
     [IntentFilter(new string[] { "com.google.android.c2dm.intent.REGISTRATION" }, Categories = new string[] { "PACKAGEIDENTIFIER" })]
@@ -29,14 +30,21 @@ namespace ServiceSampleAndroid.Droid
 
         public override void OnReceive(Context context, Intent intent)
         {
-            PowerManager.WakeLock sWakeLock;
-            var pm = PowerManager.FromContext(context);
-            sWakeLock = pm.NewWakeLock(WakeLockFlags.Partial, "GCM Broadcast Reciever Tag");
-            sWakeLock.Acquire();
-            sWakeLock.Release();
-            Log.Info(Tag, "Intent received: " + intent.Action);
+            User users = new User();
 
-            if (intent.Action != IntentAction) return;
+            //PowerManager.WakeLock sWakeLock;
+            //var pm = PowerManager.FromContext(context);
+            //sWakeLock = pm.NewWakeLock(WakeLockFlags.Partial, "GCM Broadcast Reciever Tag");
+            //sWakeLock.Acquire();
+            //sWakeLock.Release();
+            //Log.Info(Tag, "Intent received: " + intent.Action);
+
+            //if (intent.Action != IntentAction) return;
+
+            //using (AppDbContext dbContext = new AppDbContext())
+            //{
+            //    User user = dbContext.Set<User>().FirstOrDefault();
+            //}
 
             SmsMessage[] messages = Telephony.Sms.Intents.GetMessagesFromIntent(intent);
 
