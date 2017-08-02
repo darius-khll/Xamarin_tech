@@ -21,16 +21,13 @@ namespace ServiceSampleAndroid.Droid
 			ToolbarResource = Resource.Layout.Toolbar;
 
             //start background service
-            //StartService(new Intent(this, typeof(SimpleStartedService)));
+            StartService(new Intent(this, typeof(SimpleStartedService)));
 
             base.OnCreate (bundle);
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new ServiceSampleAndroid.App ());
-            using (AppDbContext dbContext = new AppDbContext())
-            {
-                User users = dbContext.Set<User>().FirstOrDefault();
-            }
+
         }
     }
 }

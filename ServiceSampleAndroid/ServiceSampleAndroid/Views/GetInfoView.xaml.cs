@@ -9,13 +9,13 @@ using Xamarin.Forms.Xaml;
 
 namespace ServiceSampleAndroid.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class GetInfoView : ContentPage
-	{
-		public GetInfoView ()
-		{
-			InitializeComponent ();
-            BindingContext = new GetInfoViewModel();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class GetInfoView : ContentPage
+    {
+        public GetInfoView()
+        {
+            InitializeComponent();
+            BindingContext = new GetInfoViewModel { Page = this };
+        }
+    }
 }

@@ -8,10 +8,10 @@ namespace ServiceSampleAndroid.Models
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(p => p.Id);
-
             base.OnModelCreating(modelBuilder);
         }
 

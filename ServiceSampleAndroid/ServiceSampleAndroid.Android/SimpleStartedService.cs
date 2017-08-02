@@ -26,6 +26,8 @@ namespace ServiceSampleAndroid.Droid
         {
             IntentFilter filter = new IntentFilter(Intent.ActionQuickClock);
 
+            
+
             filter.AddAction("android.provider.Telephony.SMS_RECEIVED");
 
             RegisterReceiver(SMSBroadcastReceiver, filter);

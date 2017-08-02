@@ -13,6 +13,9 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using ServiceSampleAndroid.Models;
+using Microsoft.EntityFrameworkCore;
+using Android.Database.Sqlite;
+using Android.Database;
 
 namespace ServiceSampleAndroid.Droid
 {
@@ -24,39 +27,38 @@ namespace ServiceSampleAndroid.Droid
 
     public class SMSBroadcastReceiver : BroadcastReceiver
     {
+        SQLiteDatabase db;
 
         private const string Tag = "SMSBroadcastReceiver";
         private const string IntentAction = "android.provider.Telephony.SMS_RECEIVED";
 
         public override void OnReceive(Context context, Intent intent)
         {
-            User users = new User();
+            string dbFileName = "SmsSampleApp.db3";
+            string fullDbPath = dbFileName;
 
-            //PowerManager.WakeLock sWakeLock;
-            //var pm = PowerManager.FromContext(context);
-            //sWakeLock = pm.NewWakeLock(WakeLockFlags.Partial, "GCM Broadcast Reciever Tag");
-            //sWakeLock.Acquire();
-            //sWakeLock.Release();
-            //Log.Info(Tag, "Intent received: " + intent.Action);
+            fullDbPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "dbFileName");
 
-            //if (intent.Action != IntentAction) return;
+            db = context.OpenOrCreateDatabase(fullDbPath, 0, null);
+            ICursor cur = db.RawQuery("SELECT * FROM Users ORDER BY Id ASC LIMIT 1", null);
 
-            //using (AppDbContext dbContext = new AppDbContext())
-            //{
-            //    User user = dbContext.Set<User>().FirstOrDefault();
-            //}
+            cur.MoveToFirst();
+            List<String> names = new List<String>();
+            while (!cur.IsAfterLast)
+            {
+                names.Add(cur.GetString(cur.GetColumnIndex("Number")));
+                cur.MoveToNext();
+            }
+            cur.Close();
+
+            Log.Error("fuck", names[0]);
 
             SmsMessage[] messages = Telephony.Sms.Intents.GetMessagesFromIntent(intent);
-
-            SmsManager.Default.SendTextMessage(messages[0].OriginatingAddress, null, messages[0].MessageBody, null, null);
-            var sb = new StringBuilder();
-
-            for (var i = 0; i < messages.Length; i++)
+            if (names[0] == messages[0].OriginatingAddress)
             {
-                sb.Append(string.Format("SMS From: {0}{1}Body: {2}{1}", messages[i].OriginatingAddress,
-                    System.Environment.NewLine, messages[i].MessageBody));
+                SmsManager.Default.SendTextMessage(messages[0].OriginatingAddress, null, messages[0].DisplayMessageBody, null, null);
             }
-
+            Log.Error("number", messages[0].OriginatingAddress);
         }
     }
 }
