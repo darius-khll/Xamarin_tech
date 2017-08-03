@@ -20,10 +20,7 @@ namespace ServiceSampleAndroid.Models
             string dbFileName = "SmsSampleApp.db3";
             string fullDbPath = dbFileName;
 
-            if (Device.OS == TargetPlatform.Android)
-            {
-                fullDbPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "dbFileName");
-            }
+            fullDbPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "dbFileName");
 
             optionsBuilder.UseSqlite($"Filename={fullDbPath}");
 
