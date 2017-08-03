@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using ServiceSampleAndroid.Models;
 using Xamarin.Forms;
 
 namespace ServiceSampleAndroid
@@ -13,12 +13,15 @@ namespace ServiceSampleAndroid
 		{
 			InitializeComponent();
 
-			MainPage = new ServiceSampleAndroid.Views.GetInfoView();
+			MainPage = new NavigationPage(new ServiceSampleAndroid.Views.HomeView());
 		}
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+            using (AppDbContext db = new AppDbContext())
+            {
+                db.Database.EnsureCreated();
+            }
 		}
 
 		protected override void OnSleep ()
