@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using ServiceSampleAndroid.Models;
 using ServiceSampleAndroid.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,7 +12,20 @@ namespace ServiceSampleAndroid.Views
         public GetInfoView()
         {
             InitializeComponent();
-            BindingContext = new GetInfoViewModel { Page = this };
+
+            string telNumber = "9120000000";
+            using (AppDbContext dbContext = new AppDbContext())
+            {
+                User user = dbContext.Users.FirstOrDefault();
+                if(user != null)
+                {
+                    telNumber = user.Number;
+                }
+                  
+            }
+
+            BindingContext = new GetInfoViewModel { Page = this, TelephoneNumber = telNumber };
+
         }
     }
 }
