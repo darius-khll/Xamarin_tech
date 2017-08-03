@@ -17,14 +17,14 @@ namespace ServiceSampleAndroid.Views
             using (AppDbContext dbContext = new AppDbContext())
             {
                 User user = dbContext.Users.FirstOrDefault();
-                if(user != null)
+                if (user != null)
                 {
                     telNumber = user.Number;
                 }
-                  
+
             }
 
-            BindingContext = new GetInfoViewModel { Page = this, TelephoneNumber = telNumber };
+            BindingContext = new GetInfoViewModel { Page = this, TelephoneNumber = telNumber, Navigation = Navigation };
 
         }
     }

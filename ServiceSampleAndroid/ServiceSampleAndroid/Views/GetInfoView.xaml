@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ServiceSampleAndroid.Views.GetInfoView" BackgroundColor="#1abc9c">
+             x:Class="ServiceSampleAndroid.Views.GetInfoView" BackgroundColor="#34495e" NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
             <Label Text="شماره مورد نظر را وارد کنید" TextColor="White" />
-            <Entry Placeholder="9120000000" Text="{Binding TelephoneNumber}"/>
-            <Button Command="{Binding SaveIntoDB}" Text="ثبت شماره" BackgroundColor="#303f9f"/>
+            <Entry Placeholder="9120000000" PlaceholderColor="White" TextColor="White" Text="{Binding TelephoneNumber}"/>
+            <Button Command="{Binding SaveIntoDB}" TextColor="White" Text="ثبت شماره" BackgroundColor="#F1654C"/>
+
+            <Button Command="{Binding GoBackToHomePage}" Text="برگشتن" BackgroundColor="#e2e2e2"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
