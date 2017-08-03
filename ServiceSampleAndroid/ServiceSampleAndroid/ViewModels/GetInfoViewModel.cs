@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using PropertyChanged;
 using ServiceSampleAndroid.Models;
 using Xamarin.Forms;
-using Microsoft.EntityFrameworkCore;
 
 namespace ServiceSampleAndroid.ViewModels
 {
@@ -23,15 +21,16 @@ namespace ServiceSampleAndroid.ViewModels
               {
                   using (AppDbContext dbContext = new AppDbContext())
                   {
-                      await dbContext.Database.EnsureDeletedAsync();
+                      //await dbContext.Database.EnsureDeletedAsync();
+                      //await dbContext.Database.EnsureCreatedAsync();
 
-                      //return;
-                      await dbContext.Database.EnsureCreatedAsync();
+                      User deletedUser = await dbContext.Users.FirstOrDefaultAsync();
+                      dbContext.Users.Remove(deletedUser);
 
                       await dbContext.Users.AddAsync(new User
                       {
                           Name = "ali",
-                          Number = "+98" + TelephoneNumber
+                          Number = TelephoneNumber.StartsWith("+98") ? TelephoneNumber : "+98" + TelephoneNumber
                       });
 
                       await dbContext.SaveChangesAsync();
