@@ -9,11 +9,14 @@ namespace ServiceSampleAndroid.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class GetInfoViewModel
     {
+        public INavigation Navigation { get; set; }
+
         public Page Page { get; set; }
 
         public string TelephoneNumber { get; set; }
 
         public Command SaveIntoDB { get; set; }
+        public Command GoBackToHomePage { get; set; }
 
         public GetInfoViewModel()
         {
@@ -21,9 +24,6 @@ namespace ServiceSampleAndroid.ViewModels
               {
                   using (AppDbContext dbContext = new AppDbContext())
                   {
-                      //await dbContext.Database.EnsureDeletedAsync();
-                      //await dbContext.Database.EnsureCreatedAsync();
-
                       User deletedUser = await dbContext.Users.FirstOrDefaultAsync();
                       dbContext.Users.Remove(deletedUser);
 
@@ -38,6 +38,12 @@ namespace ServiceSampleAndroid.ViewModels
                       await Page.DisplayAlert("ثبت", "شماره مورد نظر با موفقیت ثبت گردید", "باشه!");
                   }
               });
+
+            GoBackToHomePage = new Command(async () =>
+            {
+                await Navigation.PopAsync(false);
+            });
+
         }
     }
 }
