@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
-using Android.OS;
+using Android.Database;
+using Android.Database.Sqlite;
 using Android.Provider;
-using Android.Runtime;
 using Android.Telephony;
 using Android.Util;
-using Android.Views;
-using Android.Widget;
-using ServiceSampleAndroid.Models;
-using Microsoft.EntityFrameworkCore;
-using Android.Database.Sqlite;
-using Android.Database;
 
 namespace ServiceSampleAndroid.Droid
 {
