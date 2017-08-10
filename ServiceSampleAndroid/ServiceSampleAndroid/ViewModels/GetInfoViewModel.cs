@@ -25,7 +25,8 @@ namespace ServiceSampleAndroid.ViewModels
                   using (AppDbContext dbContext = new AppDbContext())
                   {
                       User deletedUser = await dbContext.Users.FirstOrDefaultAsync();
-                      dbContext.Users.Remove(deletedUser);
+                      if(deletedUser != null)
+                        dbContext.Users.Remove(deletedUser);
 
                       await dbContext.Users.AddAsync(new User
                       {
